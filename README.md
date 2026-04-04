@@ -55,6 +55,8 @@
 ### **📁 증빙 자료:**
   * [1차_AI협업캡처.pdf 첨부 완료] (첨부 후 링크)
   * [1차과제_실행결과.jpg]
+  * <img width="808" height="537" alt="image" src="https://github.com/user-attachments/assets/1cbc3529-3758-4d5a-a3ab-70b4109f2f0e" />
+
 
 <br>
 
