@@ -17,6 +17,10 @@ int main()
   int pre_tax;
   double final_pay;
 
+  //변수 2개 추가
+  int base_pay;   
+  int bonus = 0;  //추가 수당 처음엔 0원으로 시작 
+
   //2. 정보 입력받기
   printf("근무 조를 입력하세요(주간D / 야간 N) : ");
   scanf(" %c", &group);
@@ -31,8 +35,21 @@ int main()
   scanf("%f", &tax_rate);
   
   //3. 알바비 계산 (산술연산 사용)
-  pre_tax = pay_hr*hours ;
-  final_pay = pre_tax-(pre_tax*tax_rate);
+  base_pay = pay_hr*hours ;  //기본급 계산
+
+  //야간조 수당 추가 
+  if(group == 'N' || group == 'n')
+  {
+    bonus = bonus + (base_pay / 2);
+  }
+
+  //초과 근무 수당 추가
+  if(
+
+  
+
+
+  
 
   //4. 영수증 형태의 결과 출력 
   printf("\n=================================\n");
