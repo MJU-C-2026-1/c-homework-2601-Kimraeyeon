@@ -40,19 +40,19 @@ int main()
   //야간조 수당 추가 
   if(group == 'N' || group == 'n')
   {
-    bonus = bonus + (base_pay / 2);
+    bonus = base_pay / 2;
   }
 
   //초과 근무 수당 추가
-  if(hours>160)
+  if(work_hours>160)
   {
     int over_hours = work_hours-160; //초과한 시간만 계산
-    bonus=bonus + (over_hours*pay_hr/2);
+    bonus= over_hours*pay_hr/2;
   }
 
   // 세전/ 세후 계산 
   pre_tax = base_pay + bonus;
-  finaly_pay = pre_tax - (pre_tax*tax_rate);
+  final_pay = pre_tax - (pre_tax*tax_rate);
   
 
   //4. 영수증 형태의 결과 출력 
