@@ -12,7 +12,7 @@ int main()
   //1. 변수 선언
   char group;
   int pay_hr;
-  int hours;
+  int work_hours;
   float tax_rate;
   int pre_tax;
   double final_pay;
@@ -29,13 +29,13 @@ int main()
   scanf("%d",&pay_hr);
 
   printf("이번달 일한 시간을 입력하세요(시간) : ");
-  scanf("%d", &hours);
+  scanf("%d", &work_hours);
 
   printf("적용할 세율을 입력(예:3.3%%면 0.033) : ");
   scanf("%f", &tax_rate);
   
   //3. 알바비 계산 (산술연산 사용)
-  base_pay = pay_hr*hours ;  //기본급 계산
+  base_pay = pay_hr*work_hours ;  //기본급 계산
 
   //야간조 수당 추가 
   if(group == 'N' || group == 'n')
@@ -46,7 +46,7 @@ int main()
   //초과 근무 수당 추가
   if(hours>160)
   {
-    int over_hours = hours-160; //초과한 시간만 계산
+    int over_hours = work_hours-160; //초과한 시간만 계산
     bonus=bonus + (over_hours*pay_hr/2);
   }
 
@@ -61,7 +61,7 @@ int main()
   printf("==================================\n");
   printf("근무 조 : %c조\n", group);
   printf("시급 : %d원\n", pay_hr);
-  printf("근무 시간 : %d시간\n",hours);
+  printf("근무 시간 : %d시간\n",work_hours);
   printf("적용 세율 : %.1f%%\n", tax_rate*100);
   printf("----------------------------------\n");
   printf("기본급 : %d\n", base_pay);
