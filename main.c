@@ -44,11 +44,15 @@ int main()
   }
 
   //초과 근무 수당 추가
-  if(
+  if(hours>160)
+  {
+    int over_hours = hours-160; //초과한 시간만 계산
+    bonus=bonus + (over_hours*pay_hr/2);
+  }
 
-  
-
-
+  // 세전/ 세후 계산 
+  pre_tax = base_pay + bonus;
+  finaly_pay = pre_tax - (pre_tax*tax_rate);
   
 
   //4. 영수증 형태의 결과 출력 
@@ -60,6 +64,8 @@ int main()
   printf("근무 시간 : %d시간\n",hours);
   printf("적용 세율 : %.1f%%\n", tax_rate*100);
   printf("----------------------------------\n");
+  printf("기본급 : %d\n", base_pay);
+  printf("추가수당 (야간/초과) : %d원\n", bonus);
   printf("세전 총 급여 : %d원\n", pre_tax);
   printf("세후 실 수령액 : %.1f원\n", final_pay);
   printf("==================================\n");
