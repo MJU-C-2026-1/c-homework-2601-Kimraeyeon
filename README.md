@@ -85,6 +85,7 @@
 
 ### **📁 증빙 자료:**
   * [2차_AI협업캡처.pdf 첨부 완료] (첨부 후 링크)
+  * https://github.com/MJU-C-2026-1/c-homework-2601-Kimraeyeon/blob/main/2%EC%B0%A8_AI%ED%98%91%EC%97%85%EC%BA%A1%EC%B3%90.pdf 
   * [2차과제_실행결과.jpg]
   * <img width="664" height="508" alt="2차과제_실행결과" src="https://github.com/user-attachments/assets/62b96a67-5715-470a-abe8-ad925a0c31f1" />
 
