@@ -86,6 +86,8 @@
 ### **📁 증빙 자료:**
   * [2차_AI협업캡처.pdf 첨부 완료] (첨부 후 링크)
   * [2차과제_실행결과.jpg]
+  * <img width="664" height="508" alt="2차과제_실행결과" src="https://github.com/user-attachments/assets/62b96a67-5715-470a-abe8-ad925a0c31f1" />
+
 <br>
 
 ## 🟨 [3차 과제: V3.0] 무한 루프와 메뉴 시스템 (반복문) - 향후 작성 예정
