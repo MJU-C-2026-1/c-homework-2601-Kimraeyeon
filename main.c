@@ -21,18 +21,56 @@ int main()
   int base_pay;   
   int bonus = 0;  //추가 수당 처음엔 0원으로 시작 
 
+ // 변수 추가
+ char continue_flag; //다음 사람 계산 여부를 묻는 변수 
+
   //2. 정보 입력받기
-  printf("근무 조를 입력하세요(주간D / 야간 N) : ");
-  scanf(" %c", &group);
+    printf("\n====새로운 알바생 급여 계산을 시작합니다.===\n");
 
-  printf("시급을 입력하세요(원) : ");
-  scanf("%d",&pay_hr);
-
-  printf("이번달 일한 시간을 입력하세요(시간) : ");
-  scanf("%d", &work_hours);
-
-  printf("적용할 세율을 입력(예:3.3%%면 0.033) : ");
-  scanf("%f", &tax_rate);
+    // 입력값 오류 방어
+    while(1)
+    {
+      printf("근무 조를 입력하세요(주간D / 야간 N) : ");
+      scanf(" %c", &group);
+      if(group == 'D' || group == 'd' || group == 'C' || group == 'c')
+      {
+        break;
+      }
+      printf("[오류] 잘못된 입력입니다. D 또는 N을 입력해주세요 .\n");
+    }  
+    
+    while(1)
+    {
+      printf("시급을 입력하세요(원) : ");
+      scanf("%d",&pay_hr);
+      if(pay_hr>0)
+      {
+        break;
+      }
+      printf("[오류] 시급은 0원보다 커야 합니다. 다시 입력해주세요. \n");
+    }
+    
+    while(1)
+    {
+      printf("이번달 일한 시간을 입력하세요(시간) : ");
+      scanf("%d", &work_hours);
+      if(work_hours>=0 && work_hours <= 744) //한달 (31일*24시간=744시간) 최대치 
+      {
+        break;
+      }
+      printf("[오류] 비정상적인 근무시간입니다. (0에서 744사이 시간 입력)");
+    }
+ 
+    while(1)
+    {
+      printf("적용할 세율을 입력(예:3.3%%면 0.033) : ");
+      scanf("%f", &tax_rate);
+      if(tax_rate >= 0.0 && tax_rate<1.0)
+      {
+        break;
+      }
+      printf("[오류] 세율은 0 이상 1 미만의 값이어야 합니다.\n");
+    }
   
   //3. 알바비 계산 (산술연산 사용)
   base_pay = pay_hr*work_hours ;  //기본급 계산
