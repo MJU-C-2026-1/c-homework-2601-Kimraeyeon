@@ -19,14 +19,16 @@ int main()
 
   //변수 2개 추가
   int base_pay;   
-  int bonus = 0;  //추가 수당 처음엔 0원으로 시작 
+  int bonus; 
 
  // 변수 추가
  char continue_flag; //다음 사람 계산 여부를 묻는 변수 
 
-  //2. 정보 입력받기
-    printf("\n====새로운 알바생 급여 계산을 시작합니다.===\n");
-
+  while(1) //전체 프로그램 무한 반복 시작 
+  {
+    bonus=0;
+    printf("\n===새로운 알바생 급여 계산을 시작합니다.===\n");
+  //2. 정보 입력받기 
     // 입력값 오류 방어
     while(1)
     {
@@ -85,7 +87,7 @@ int main()
   if(work_hours>160)
   {
     int over_hours = work_hours-160; //초과한 시간만 계산
-    bonus= over_hours*pay_hr/2;
+    bonus= bonus + (over_hours*pay_hr/2);
   }
 
   // 세전/ 세후 계산 
@@ -108,5 +110,6 @@ int main()
   printf("세후 실 수령액 : %.1f원\n", final_pay);
   printf("==================================\n");
 
+  } //전체 프로그램 반복문 끝 
   return 0; 
 }
