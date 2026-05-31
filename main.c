@@ -110,6 +110,16 @@ int main()
   printf("세후 실 수령액 : %.1f원\n", final_pay);
   printf("==================================\n");
 
+  //계속 진행할지 여부 확인
+  printf("\n다른 알바생의 급여도 계산하시겠습니까? (Y/N) : ");
+  scanf(" %c", &continue_flag);
+
+  if(continue_flag=='N' || continue_flag=='n')
+  {
+    printf("프로그램을 안전하게 종료합니다.\n");
+    break; //가장 바깥쪽의 while(1)을 탈출하여 프로그램 종료 
+  } 
+    
   } //전체 프로그램 반복문 끝 
   return 0; 
 }
