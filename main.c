@@ -1,125 +1,159 @@
 /* 
   파일이름: 알바비 정산 프로그램 
-  작 성 자: 김래연 , 26-04-04
+  작 성 자: 김래연 , 26-06-16
   하 는 일: 아르바이트생의 근무 정보를 입력받아 세금 공제 전후의 알바비를 정확하게 계산하고 명세서를 발급
 
 */
 
 #include <stdio.h>
 
-int main()
+#define MAX_EMP 5 // 배열의 최대 크기는 5 
+
+int global_total_employees = 0; // 현재까지 입력된 알바생 수
+float global_tax_rate = 0.033f; // 공통 적용 세율
+
+int calculate_bonus(char group, int wage, int hours); 
+void input_data(char groups[], int pay_hrs[], int work_hours_arr[], int pre_taxes[], double final_pays[]);
+void view_data(char groups[], int pay_hrs[], int work_hours_arr[], int pre_taxes[], double final_pays[]);
+double analyze_data(double *final_pays_ptr); 
+
+int main() 
 {
-  //1. 변수 선언
-  char group;
-  int pay_hr;
-  int work_hours;
-  float tax_rate;
-  int pre_tax;
-  double final_pay;
+    char groups[MAX_EMP];
+    int pay_hrs[MAX_EMP];
+    int work_hours_arr[MAX_EMP];
+    int pre_taxes[MAX_EMP];
+    double final_pays[MAX_EMP];
 
-  //변수 2개 추가
-  int base_pay;   
-  int bonus; 
+    int menu_choice;
 
- // 변수 추가
- char continue_flag; //다음 사람 계산 여부를 묻는 변수 
+    while(1) {
+        printf("\n======= [알바비 종합 관리 시스템] =======\n");
+        printf("1. 알바생 정보 입력\n");
+        printf("2. 전체 급여 조회 (배열 인덱스 방식)\n");
+        printf("3. 총 지출액 분석 (포인터 연산 방식)\n");
+        printf("4. 프로그램 종료\n");
+        printf("=========================================\n");
+        printf("메뉴를 선택하세요: ");
+        scanf("%d", &menu_choice);
 
-  while(1) //전체 프로그램 무한 반복 시작 
-  {
-    bonus=0;
-    printf("\n===새로운 알바생 급여 계산을 시작합니다.===\n");
-  //2. 정보 입력받기 
-    // 입력값 오류 방어
-    while(1)
-    {
-      printf("근무 조를 입력하세요(주간D / 야간 N) : ");
-      scanf(" %c", &group);
-      if(group == 'D' || group == 'd' || group == 'C' || group == 'c')
-      {
-        break;
-      }
-      printf("[오류] 잘못된 입력입니다. D 또는 N을 입력해주세요 .\n");
-    }  
-    
-    while(1)
-    {
-      printf("시급을 입력하세요(원) : ");
-      scanf("%d",&pay_hr);
-      if(pay_hr>0)
-      {
-        break;
-      }
-      printf("[오류] 시급은 0원보다 커야 합니다. 다시 입력해주세요. \n");
+        if (menu_choice == 1) 
+		{
+            input_data(groups, pay_hrs, work_hours_arr, pre_taxes, final_pays);
+        } 
+        else if (menu_choice == 2) 
+		{
+            view_data(groups, pay_hrs, work_hours_arr, pre_taxes, final_pays);
+        } 
+        else if (menu_choice == 3) 
+		{
+            double total_expense = analyze_data(final_pays); 
+            if (global_total_employees > 0) 
+			{
+                printf("\n[분석 결과] 이번 달 매장 총 지출 예정 급여(세후): %.0f원\n", total_expense);
+            }
+        } 
+        else if (menu_choice == 4) 
+		{
+            printf("프로그램을 안전하게 종료합니다.\n");
+            break; 
+        } 
+        else 
+		{
+            printf("[오류] 1~4 사이의 번호를 입력해주세요.\n");
+        }
+    }
+
+    return 0; 
+}
+
+
+// 개별 함수 정의부
+
+// 수당 계산 함수 
+int calculate_bonus(char group, int wage, int hours) 
+{
+    int bonus = 0;
+    if (group == 'N' || group == 'n') 
+	{
+        bonus += (wage * hours / 2);
+    }
+    if (hours > 160) 
+	{
+        bonus += ((hours - 160) * wage / 2);
+    }
+    return bonus;
+}
+
+// [기능 1] 데이터 입력 함수
+void input_data(char groups[], int pay_hrs[], int work_hours_arr[], int pre_taxes[], double final_pays[]) 
+{
+    if (global_total_employees >= MAX_EMP) 
+	{
+        printf("[안내] 최대 입력 인원(%d명)을 초과하여 더 이상 입력할 수 없습니다!\n", MAX_EMP);
+        return;
     }
     
-    while(1)
-    {
-      printf("이번달 일한 시간을 입력하세요(시간) : ");
-      scanf("%d", &work_hours);
-      if(work_hours>=0 && work_hours <= 744) //한달 (31일*24시간=744시간) 최대치 
-      {
-        break;
-      }
-      printf("[오류] 비정상적인 근무시간입니다. (0에서 744사이 시간 입력)");
+    int i = global_total_employees; 
+    
+    printf("\n[%d번째 알바생 정보 입력]\n", i + 1);
+    printf("근무 조를 입력하세요(주간D / 야간 N) : ");
+    scanf(" %c", &groups[i]);
+
+    printf("시급을 입력하세요(원) : ");
+    scanf("%d", &pay_hrs[i]);
+
+    printf("이번달 일한 시간을 입력하세요(시간) : ");
+    scanf("%d", &work_hours_arr[i]);
+
+    // 연산
+    int base_pay = pay_hrs[i] * work_hours_arr[i];
+    int bonus = calculate_bonus(groups[i], pay_hrs[i], work_hours_arr[i]);
+    
+    pre_taxes[i] = base_pay + bonus;
+    final_pays[i] = pre_taxes[i] - (pre_taxes[i] * global_tax_rate);
+
+    global_total_employees++; 
+    printf(">> 입력 성공! (현재 등록 인원: %d/%d명)\n", global_total_employees, MAX_EMP);
+}
+
+// [기능 2] 데이터 조회 함수
+void view_data(char groups[], int pay_hrs[], int work_hours_arr[], int pre_taxes[], double final_pays[]) 
+{
+    if (global_total_employees == 0) 
+	{
+        printf("\n[안내] 등록된 알바생 데이터가 없습니다.\n");
+        return;
     }
+    
+    printf("\n============= [전체 알바생 급여 조회] =============\n");
+	
+	int i;
+    for (i = 0; i < global_total_employees; i++) 
+	{
+        printf("ID: %d | 조: %c | 시급: %d원 | 시간: %dH | 세전: %d원 | 세후: %.0f원\n",
+               i + 1, groups[i], pay_hrs[i], work_hours_arr[i], pre_taxes[i], final_pays[i]);
+    }
+    printf("===================================================\n");
+}
+
+// [기능 3] 데이터 분석 함수 (포인터 연산)
+double analyze_data(double *final_pays_ptr) 
+{
+    if (global_total_employees == 0) 
+	{
+        printf("\n[안내] 분석할 데이터가 없습니다.\n");
+        return 0.0;
+    }
+    
+    double total_sum = 0;
  
-    while(1)
-    {
-      printf("적용할 세율을 입력(예:3.3%%면 0.033) : ");
-      scanf("%f", &tax_rate);
-      if(tax_rate >= 0.0 && tax_rate<1.0)
-      {
-        break;
-      }
-      printf("[오류] 세율은 0 이상 1 미만의 값이어야 합니다.\n");
+ 	int i;
+    for (i = 0; i < global_total_employees; i++) 
+	{
+        total_sum += *(final_pays_ptr + i); 
     }
-  
-  //3. 알바비 계산 (산술연산 사용)
-  base_pay = pay_hr*work_hours ;  //기본급 계산
-
-  //야간조 수당 추가 
-  if(group == 'N' || group == 'n')
-  {
-    bonus = base_pay / 2;
-  }
-
-  //초과 근무 수당 추가
-  if(work_hours>160)
-  {
-    int over_hours = work_hours-160; //초과한 시간만 계산
-    bonus= bonus + (over_hours*pay_hr/2);
-  }
-
-  // 세전/ 세후 계산 
-  pre_tax = base_pay + bonus;
-  final_pay = pre_tax - (pre_tax*tax_rate);
-  
-
-  //4. 영수증 형태의 결과 출력 
-  printf("\n=================================\n");
-  printf("[알바비 급여 명세서]\n");
-  printf("==================================\n");
-  printf("근무 조 : %c조\n", group);
-  printf("시급 : %d원\n", pay_hr);
-  printf("근무 시간 : %d시간\n",work_hours);
-  printf("적용 세율 : %.1f%%\n", tax_rate*100);
-  printf("----------------------------------\n");
-  printf("기본급 : %d\n", base_pay);
-  printf("추가수당 (야간/초과) : %d원\n", bonus);
-  printf("세전 총 급여 : %d원\n", pre_tax);
-  printf("세후 실 수령액 : %.1f원\n", final_pay);
-  printf("==================================\n");
-
-  //계속 진행할지 여부 확인
-  printf("\n다른 알바생의 급여도 계산하시겠습니까? (Y/N) : ");
-  scanf(" %c", &continue_flag);
-
-  if(continue_flag=='N' || continue_flag=='n')
-  {
-    printf("프로그램을 안전하게 종료합니다.\n");
-    break; //가장 바깥쪽의 while(1)을 탈출하여 프로그램 종료 
-  } 
     
-  } //전체 프로그램 반복문 끝 
-  return 0; 
+    return total_sum; 
+}
 }
