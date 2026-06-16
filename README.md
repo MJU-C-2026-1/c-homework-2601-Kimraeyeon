@@ -140,4 +140,9 @@
 ### **📁 증빙 자료:**
   * [4차_AI협업캡처.pdf 첨부 완료] (첨부 후 링크)
   * [4차과제_실행결과.jpg]
+  * <img width="880" height="705" alt="스크린샷 2026-06-16 224341" src="https://github.com/user-attachments/assets/69473877-56e4-4b69-94fa-ccc7fd49396a" />
+<img width="816" height="631" alt="스크린샷 2026-06-16 224352" src="https://github.com/user-attachments/assets/4abc4d99-fb68-4712-b685-a811edbcc553" />
+<img width="762" height="297" alt="스크린샷 2026-06-16 224359" src="https://github.com/user-attachments/assets/0ad3f95e-26e4-4ed7-bbdd-fcbf006daea8" />
+
+  * 
 <br>
