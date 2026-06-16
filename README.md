@@ -139,6 +139,7 @@
      
 ### **📁 증빙 자료:**
   * [4차_AI협업캡처.pdf 첨부 완료] (첨부 후 링크)
+  * https://github.com/MJU-C-2026-1/c-homework-2601-Kimraeyeon/blob/main/4%EC%B0%A8_AI%ED%98%91%EC%97%85%EC%BA%A1%EC%B3%90.pdf 
   * [4차과제_실행결과.jpg]
   * <img width="880" height="705" alt="스크린샷 2026-06-16 224341" src="https://github.com/user-attachments/assets/69473877-56e4-4b69-94fa-ccc7fd49396a" />
 <img width="816" height="631" alt="스크린샷 2026-06-16 224352" src="https://github.com/user-attachments/assets/4abc4d99-fb68-4712-b685-a811edbcc553" />
